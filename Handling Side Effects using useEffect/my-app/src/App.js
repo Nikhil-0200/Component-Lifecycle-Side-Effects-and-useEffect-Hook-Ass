@@ -1,6 +1,8 @@
 import axios from "axios";
 import "./App.css";
 import { useEffect, useState } from "react";
+import ExternalEvents from "./ExternalEvents.jsx";
+
 
 function UI({ ele }) {
   let { first_name, last_name, email, avatar } = ele;
@@ -17,6 +19,7 @@ function UI({ ele }) {
 
 function App() {
   let [data, setData] = useState([]);
+  let [show, setShow] = useState(false)
 
   useEffect(() => {
     fetchData();
@@ -34,14 +37,21 @@ function App() {
     }
   }
 
+  function redirect(){
+    setShow(!show)
+  }
+
   return (
     <div className="App">
       <div className="userDiv">
         {data.map((ele, index) => (
-        <UI key={index} ele={ele} />
-      ))}
+          <UI key={index} ele={ele} />
+        ))}
       </div>
-      
+
+      <button onClick={ redirect} >Show MouseEvent</button>
+
+      {show && <ExternalEvents/>}
     </div>
   );
 }
